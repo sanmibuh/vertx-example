@@ -1,11 +1,14 @@
 package org.sanmibuh.vertx.example;
 
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,13 +26,15 @@ public class MyFirstVerticle extends AbstractVerticle {
     router.route("/").handler(routingContext -> {
       final HttpServerResponse response = routingContext.response();
       response
-          .putHeader("content-type", "text/html")
+          .putHeader(HttpHeaders.CONTENT_TYPE, "text/html")
           .end("<h1>Hello from my first Vert.x 3 application</h1>");
     });
 
     router.route("/assets/*").handler(StaticHandler.create("assets"));
 
     router.get("/api/whiskies").handler(this::getAll);
+    router.route("/api/whiskies*").handler(BodyHandler.create());
+    router.post("/api/whiskies").handler(this::addOne);
 
     vertx
         .createHttpServer()
@@ -59,7 +64,17 @@ public class MyFirstVerticle extends AbstractVerticle {
 
   private void getAll(final RoutingContext routingContext) {
     routingContext.response()
-        .putHeader("content-type", "application/json; charset=utf-8")
+        .putHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8")
         .end(Json.encodePrettily(products.values()));
+  }
+
+  private void addOne(final RoutingContext routingContext) {
+    final Whisky whisky = Json.decodeValue(routingContext.getBodyAsString(),
+        Whisky.class);
+    products.put(whisky.getId(), whisky);
+    routingContext.response()
+        .setStatusCode(HttpResponseStatus.CREATED.code())
+        .putHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8")
+        .end(Json.encodePrettily(whisky));
   }
 }
