@@ -35,6 +35,7 @@ public class MyFirstVerticle extends AbstractVerticle {
     router.get("/api/whiskies").handler(this::getAll);
     router.route("/api/whiskies*").handler(BodyHandler.create());
     router.post("/api/whiskies").handler(this::addOne);
+    router.delete("/api/whiskies/:id").handler(this::deleteOne);
 
     vertx
         .createHttpServer()
@@ -76,5 +77,16 @@ public class MyFirstVerticle extends AbstractVerticle {
         .setStatusCode(HttpResponseStatus.CREATED.code())
         .putHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8")
         .end(Json.encodePrettily(whisky));
+  }
+
+  private void deleteOne(final RoutingContext routingContext) {
+    final String id = routingContext.request().getParam("id");
+    if (id == null) {
+      routingContext.response().setStatusCode(HttpResponseStatus.BAD_REQUEST.code()).end();
+    } else {
+      final Integer idAsInteger = Integer.valueOf(id);
+      products.remove(idAsInteger);
+    }
+    routingContext.response().setStatusCode(HttpResponseStatus.NO_CONTENT.code()).end();
   }
 }
