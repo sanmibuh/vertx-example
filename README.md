@@ -7,6 +7,6 @@ Vertx PET Project
 java -jar target/vertx-example-1.0-SNAPSHOT-fat.jar -conf src/main/conf/my-application-conf.json
 ```
 
-##Entry Point
+## Entry Point
 
 http://localhost:8082/assets/index.html
