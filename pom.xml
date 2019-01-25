@@ -10,6 +10,7 @@
   <properties>
     <io.vertx.version>3.6.2</io.vertx.version>
     <junit.version>4.12</junit.version>
+    <org.projectlombok.lombok.version>1.18.4</org.projectlombok.lombok.version>
   </properties>
 
   <dependencyManagement>
@@ -23,6 +24,11 @@
         <groupId>io.vertx</groupId>
         <artifactId>vertx-web</artifactId>
         <version>${io.vertx.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${org.projectlombok.lombok.version}</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
@@ -47,6 +53,10 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
