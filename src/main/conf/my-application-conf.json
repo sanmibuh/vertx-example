@@ -1,3 +1,6 @@
 {
-  "http.port": 8082
+  "http.port": 8082,
+  "DSName" : "My-Whisky-Collection",
+  "url": "jdbc:hsqldb:file:db/whiskies",
+  "driver_class": "org.hsqldb.jdbcDriver"
 }

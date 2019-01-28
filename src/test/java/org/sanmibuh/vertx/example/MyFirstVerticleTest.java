@@ -19,8 +19,10 @@ import org.junit.runner.RunWith;
 @RunWith(VertxUnitRunner.class)
 public class MyFirstVerticleTest {
 
-  private int port;
+  private static final String JDBC_URL = "jdbc:hsqldb:mem:test?shutdown=true";
+  private static final String JDBC_DRIVER = "org.hsqldb.jdbcDriver";
 
+  private int port;
   private Vertx vertx;
 
   @Before
@@ -32,7 +34,11 @@ public class MyFirstVerticleTest {
     socket.close();
 
     final DeploymentOptions options = new DeploymentOptions()
-        .setConfig(new JsonObject().put(Config.HTTP_PORT_KEY, port));
+        .setConfig(new JsonObject()
+            .put(Config.HTTP_PORT_KEY, port)
+            .put(Config.URL_KEY, JDBC_URL)
+            .put(Config.DRIVER_CLASS_KEY, JDBC_DRIVER)
+        );
 
     vertx.deployVerticle(MyFirstVerticle.class.getName(), options, context.asyncAssertSuccess());
   }
