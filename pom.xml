@@ -10,6 +10,7 @@
   <properties>
     <io.vertx.version>3.6.2</io.vertx.version>
     <junit.version>4.12</junit.version>
+    <org.hsqldb.version>2.3.3</org.hsqldb.version>
     <org.projectlombok.lombok.version>1.18.4</org.projectlombok.lombok.version>
     <com.jayway.restassured.version>2.4.0</com.jayway.restassured.version>
     <org.assertj.version>2.0.0</org.assertj.version>
@@ -32,6 +33,16 @@
         <groupId>io.vertx</groupId>
         <artifactId>vertx-web</artifactId>
         <version>${io.vertx.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-jdbc-client</artifactId>
+        <version>${io.vertx.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>${org.hsqldb.version}</version>
       </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>
@@ -73,6 +84,14 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-jdbc-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
